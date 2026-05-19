@@ -31,57 +31,78 @@ export type DashboardNavItem = {
   roles: string[] | null;
   /** If the signed-in user's role is listed here, the item is hidden (evaluated after `roles`). */
   hideForRoles?: string[];
+  /** Optional grouping category for structural division in the sidebar navigation. */
+  category?: "Master" | "Attendance" | "Time table" | "Exams" | "Finance";
 };
 
 export const dashboardNavItems: DashboardNavItem[] = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: null },
+  
+  // Time table Category
   {
     title: "Timetable board",
     href: "/timetable/board",
     icon: LayoutGrid,
     roles: ["admin"],
+    category: "Time table",
   },
   {
     title: "Timetable view",
     href: "/timetable/view",
     icon: Calendar,
     roles: ["admin"],
+    category: "Time table",
   },
   {
     title: "Timetable",
     href: "/timetable",
     icon: Calendar,
     roles: ["student", "teacher"],
+    category: "Time table",
   },
-  { title: "Students", href: "/students", icon: GraduationCap, roles: ["admin"] },
-  { title: "Teachers", href: "/teachers", icon: Users, roles: ["admin"] },
-  { title: "Classes", href: "/classes", icon: Layers, roles: ["admin"] },
-  { title: "Subjects", href: "/subjects", icon: BookOpen, roles: ["admin"] },
-  { title: "Attendance", href: "/attendance", icon: ClipboardCheck, roles: ["admin"] },
+
+  // Master Category
+  { title: "Students", href: "/students", icon: GraduationCap, roles: ["admin"], category: "Master" },
+  { title: "Teachers", href: "/teachers", icon: Users, roles: ["admin"], category: "Master" },
+  { title: "Classes", href: "/classes", icon: Layers, roles: ["admin"], category: "Master" },
+  { title: "Subjects", href: "/subjects", icon: BookOpen, roles: ["admin"], category: "Master" },
+
+  // Attendance Category
+  { title: "Attendance", href: "/attendance", icon: ClipboardCheck, roles: ["admin"], category: "Attendance" },
   {
     title: "Barcode labels",
     href: "/attendance/barcode-labels",
     icon: Printer,
     roles: ["admin"],
+    category: "Attendance",
   },
   {
     title: "Attendance report",
     href: "/attendance/report",
     icon: FileSpreadsheet,
     roles: ["admin"],
+    category: "Attendance",
   },
-  { title: "Fees", href: "/fees", icon: Wallet, roles: ["student"] },
-  { title: "Exam results", href: "/exam-results", icon: Award, roles: ["student"] },
-  { title: "Fees report", href: "/fees/report", icon: Receipt, roles: ["admin"] },
+
+  // Exams Category
+  { title: "Exams", href: "/exams", icon: ScrollText, roles: ["admin"], category: "Exams" },
+  { title: "Online exams", href: "/online-exams", icon: MonitorPlay, roles: ["admin", "student"], category: "Exams" },
+  { title: "Exam results", href: "/exams/results", icon: Award, roles: ["admin"], category: "Exams" },
+  { title: "Exam results", href: "/exam-results", icon: Award, roles: ["student"], category: "Exams" },
   {
     title: "Exam paper uploads",
     href: "/exam-papers/submissions",
     icon: Files,
     roles: ["admin"],
+    category: "Exams",
   },
-  { title: "My exam papers", href: "/exam-papers", icon: FileUp, roles: ["teacher"] },
-  { title: "Exams", href: "/exams", icon: ScrollText, roles: ["admin"] },
-  { title: "Online exams", href: "/online-exams", icon: MonitorPlay, roles: ["admin", "student"] },
+  { title: "My exam papers", href: "/exam-papers", icon: FileUp, roles: ["teacher"], category: "Exams" },
+
+  // Finance Category
+  { title: "Fees", href: "/fees", icon: Wallet, roles: ["student"], category: "Finance" },
+  { title: "Fees report", href: "/fees/report", icon: Receipt, roles: ["admin"], category: "Finance" },
+
+  // Uncategorized / General Category
   { title: "Reports", href: "/reports", icon: BarChart3, roles: ["admin"] },
   { title: "Alerts", href: "/notifications", icon: Bell, roles: null },
 ];

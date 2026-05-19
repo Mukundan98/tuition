@@ -36,7 +36,8 @@ export function OnlineExamsAdminListClient() {
   const [createOpen, setCreateOpen] = useState(false);
   const [classes, setClasses] = useState<SchoolClassRow[]>([]);
   const [newClassId, setNewClassId] = useState("");
-  const [newTitle, setNewTitle] = useState("Untitled online exam");
+  const [newTitle, setNewTitle] = useState("");
+  const [newType, setNewType] = useState("mcq");
   const [createErr, setCreateErr] = useState<string | null>(null);
   const [createPending, setCreatePending] = useState(false);
 
@@ -73,10 +74,16 @@ export function OnlineExamsAdminListClient() {
       setCreateErr("Pick a class.");
       return;
     }
+    const trimmedTitle = newTitle.trim();
+    if (!trimmedTitle) {
+      setCreateErr("Title is required.");
+      return;
+    }
     setCreatePending(true);
     const r = await apiJson<{ exam: { id: number } }>("online-exams", "POST", {
       class_id: cid,
-      title: newTitle.trim() || "Untitled online exam",
+      title: trimmedTitle,
+      type: newType,
       is_published: false,
     });
     setCreatePending(false);
@@ -98,7 +105,15 @@ export function OnlineExamsAdminListClient() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button type="button" onClick={() => setCreateOpen(true)}>
+          <Button
+            type="button"
+            onClick={() => {
+              setNewTitle("");
+              setNewType("mcq");
+              setCreateErr(null);
+              setCreateOpen(true);
+            }}
+          >
             New online exam
           </Button>
           <Link href="/dashboard" className="text-sm text-muted-foreground hover:underline self-center">
@@ -115,6 +130,7 @@ export function OnlineExamsAdminListClient() {
             <TableRow>
               <TableHead>Title</TableHead>
               <TableHead>Class</TableHead>
+              <TableHead>Type</TableHead>
               <TableHead className="text-center">Qs</TableHead>
               <TableHead className="text-center">Attempts</TableHead>
               <TableHead>Published</TableHead>
@@ -122,10 +138,10 @@ export function OnlineExamsAdminListClient() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {!data && <TableSkeletonRows columns={6} rows={6} lastColumnRight />}
+            {!data && <TableSkeletonRows columns={7} rows={6} lastColumnRight />}
             {data && data.items.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className="text-muted-foreground">
+                <TableCell colSpan={7} className="text-muted-foreground">
                   No online exams yet.
                 </TableCell>
               </TableRow>
@@ -136,6 +152,9 @@ export function OnlineExamsAdminListClient() {
                 <TableCell className="text-muted-foreground">
                   {row.school_class?.name ?? "—"}
                   {row.school_class?.section ? ` (${row.school_class.section})` : ""}
+                </TableCell>
+                <TableCell className="capitalize text-sm text-muted-foreground">
+                  {row.type === "mcq" ? "MCQ" : row.type === "single_word" ? "Single word" : "Long word"}
                 </TableCell>
                 <TableCell className="text-center tabular-nums">{row.questions_count}</TableCell>
                 <TableCell className="text-center tabular-nums">{row.attempts_count}</TableCell>
@@ -163,7 +182,12 @@ export function OnlineExamsAdminListClient() {
             <DialogTitle>New online exam</DialogTitle>
           </DialogHeader>
           <DialogBody className="space-y-4">
-            {createErr && <p className="text-sm text-destructive">{createErr}</p>}
+            {createErr &&
+              !createErr.toLowerCase().includes("class") &&
+              !createErr.toLowerCase().includes("title") &&
+              !createErr.toLowerCase().includes("required") && (
+                <p className="text-sm text-destructive">{createErr}</p>
+              )}
             <div className="space-y-2">
               <Label>Class</Label>
               <select
@@ -178,11 +202,34 @@ export function OnlineExamsAdminListClient() {
                   </option>
                 ))}
               </select>
+              {createErr && (createErr.toLowerCase().includes("class") || createErr.toLowerCase().includes("pick a class")) && (
+                <p className="text-xs font-medium text-destructive mt-1">{createErr}</p>
+              )}
             </div>
             <div className="space-y-2">
               <Label>Title</Label>
-              <Input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+              <Input
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                placeholder="e.g. Mid-term exam"
+                required
+              />
+              {createErr && (createErr.toLowerCase().includes("title") || createErr.toLowerCase().includes("required")) && (
+                <p className="text-xs font-medium text-destructive mt-1">{createErr}</p>
+              )}
             </div>
+            {/* <div className="space-y-2">
+              <Label>Type</Label>
+              <select
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                value={newType}
+                onChange={(e) => setNewType(e.target.value)}
+              >
+                <option value="mcq">MCQ</option>
+                <option value="single_word">Single word</option>
+                <option value="long_word">Long word</option>
+              </select>
+            </div> */}
           </DialogBody>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setCreateOpen(false)}>

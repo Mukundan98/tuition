@@ -8,13 +8,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Tuition Management System",
-    template: "%s | TMS",
+    default: "Tuvo Management System",
+    template: "%s | Tuvo",
   },
   description: "Tuition center operations platform",
   icons: {
-    icon: [{ url: "/brand/tms-mark.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/brand/tms-mark.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/brand/tuvo_logo.jpg", type: "image/jpeg" }],
+    apple: [{ url: "/brand/tuvo_logo.jpg", type: "image/jpeg" }],
   },
 };
 

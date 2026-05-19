@@ -15,24 +15,13 @@ export default function AuthLayout({
       </div>
 
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center p-6 md:p-12">
-        <header className="mb-10 text-center space-y-4">
-          <TmsLogoFull variant="auth" markSize={48} href="/" className="mx-auto" />
-          <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
-            <Sparkles className="size-3 text-indigo-500" />
-            TMS &bull; Management Suite
-          </div>
-        </header>
+
 
         <main className="w-full max-w-[420px] animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out">
           {children}
         </main>
 
-        <footer className="mt-12 flex flex-col items-center gap-4 text-center">
-          <div className="h-px w-12 bg-border/40" />
-          <p className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-widest">
-            &copy; {new Date().getFullYear()} TMS &bull; SECURED WITH SANCTUM
-          </p>
-        </footer>
+
       </div>
     </div>
   );

@@ -51,10 +51,11 @@ export function PendingFeesWidget() {
   }
 
   return (
-    <Card className="rounded-3xl border-border/60 bg-card/90 shadow-md backdrop-blur-sm ring-1 ring-border/40">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 border-b border-border/50 pb-3">
+    <Card className="rounded-[2rem] border-border/60 bg-card/75 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 backdrop-blur-md relative overflow-hidden group">
+      <div className="absolute top-0 left-0 w-1.5 h-full bg-amber-500/50 group-hover:bg-amber-500 transition-all duration-300" />
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 border-b border-border/50 pb-3 pl-6">
         <div>
-          <CardTitle className="flex items-center gap-2 text-base font-semibold tracking-tight">
+          <CardTitle className="flex items-center gap-2 text-base font-bold tracking-tight">
             <PiggyBank className="size-5 text-amber-600 dark:text-amber-400" aria-hidden />
             Outstanding fees
           </CardTitle>
@@ -62,37 +63,37 @@ export function PendingFeesWidget() {
         </div>
         <Link
           href="/fees/report"
-          className="inline-flex items-center gap-0.5 text-xs font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+          className="inline-flex items-center gap-0.5 text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
         >
           Overdue
           <ArrowUpRight className="size-3.5 opacity-80" aria-hidden />
         </Link>
       </CardHeader>
-      <CardContent className="space-y-3 pt-4 text-sm">
+      <CardContent className="space-y-3 pt-4 text-sm pl-6">
         {overview && (
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl border border-border/60 bg-gradient-to-br from-muted/50 to-transparent p-3">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">Balance due</p>
-              <p className="mt-1 text-xl font-bold tabular-nums tracking-tight">{overview.pending_balance}</p>
+            <div className="rounded-2xl border border-indigo-500/10 bg-gradient-to-br from-indigo-500/5 to-transparent p-3 transition-all duration-300 hover:border-indigo-500/25">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Balance due</p>
+              <p className="mt-1 text-xl font-black tabular-nums tracking-tight text-foreground">{overview.pending_balance}</p>
             </div>
-            <div className="rounded-2xl border border-rose-200/60 bg-rose-50/80 p-3 dark:border-rose-900/40 dark:bg-rose-950/30">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-rose-800/80 dark:text-rose-200/80">
+            <div className="rounded-2xl border border-rose-500/15 bg-rose-500/5 p-3 transition-all duration-300 hover:border-rose-500/30">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-rose-800/80 dark:text-rose-200/80">
                 Overdue notices
               </p>
-              <p className="mt-1 text-xl font-bold tabular-nums tracking-tight text-rose-700 dark:text-rose-300">
+              <p className="mt-1 text-xl font-black tabular-nums tracking-tight text-rose-700 dark:text-rose-300">
                 {overview.overdue_count}
               </p>
             </div>
           </div>
         )}
-        <ul className="max-h-[220px] space-y-1.5 overflow-y-auto border-t border-border/50 pt-3">
-          {rows.length === 0 && <li className="text-muted-foreground">No pending rows.</li>}
+        <ul className="max-h-[220px] space-y-1 overflow-y-auto border-t border-border/50 pt-3 scrollbar-thin">
+          {rows.length === 0 && <li className="text-muted-foreground py-2 text-xs italic">No pending rows.</li>}
           {rows.map((r) => (
-            <li key={r.id} className="flex justify-between gap-2 text-xs sm:text-sm">
-              <Link href={`/fees/${r.id}`} className="min-w-0 truncate font-medium hover:underline">
-                {r.student?.name ?? "—"} — {r.title}
+            <li key={r.id} className="flex items-center justify-between gap-2 rounded-xl p-2 transition-all duration-200 hover:bg-muted/40 text-xs sm:text-sm">
+              <Link href={`/fees/${r.id}`} className="min-w-0 truncate font-semibold text-foreground hover:text-indigo-600 transition-colors">
+                {r.student?.name ?? "—"} <span className="font-normal text-muted-foreground">— {r.title}</span>
               </Link>
-              <span className="shrink-0 tabular-nums text-muted-foreground">{r.balance}</span>
+              <span className="shrink-0 tabular-nums font-bold text-amber-600 dark:text-amber-400">{r.balance}</span>
             </li>
           ))}
         </ul>

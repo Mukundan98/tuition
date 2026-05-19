@@ -47,16 +47,13 @@ export function AppSidebar({ mode = "desktop", onNavigate }: Props) {
           href="/dashboard"
           className="min-w-0 transition-opacity hover:opacity-95"
         />
-        <p className="mt-2 pl-[3rem] text-[11px] leading-snug text-muted-foreground">
+        {/* <p className="mt-2 pl-[3rem] text-[11px] leading-snug text-muted-foreground">
           Tuition center workspace
-        </p>
+        </p> */}
       </div>
 
       {/* Nav */}
       <nav className="relative z-[1] flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 py-2 [scrollbar-width:thin]">
-        <p className="mb-1 px-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/90">
-          Menu
-        </p>
         <DashboardNavLinks onNavigate={onNavigate} />
       </nav>
 

@@ -27,6 +27,7 @@ export function AppHeader({ prepend }: AppHeaderProps) {
   const { user, status, logout } = useAuth();
   const router = useRouter();
 
+
   const initials =
     user?.name
       ?.split(" ")
@@ -40,11 +41,11 @@ export function AppHeader({ prepend }: AppHeaderProps) {
       <div className="flex min-w-0 flex-1 items-start gap-2 sm:items-center">
         {prepend ?? null}
         <div className="min-w-0 flex-1">
-          <h1 className="text-lg font-semibold tracking-tight">Dashboard</h1>
-          <p className="text-xs text-muted-foreground">
+
+          <h1 className="text-lg text-muted-foreground font-bold">
             Welcome back
             {user?.name ? `, ${user.name.split(" ")[0]}` : ""}
-          </p>
+          </h1>
         </div>
       </div>
       <div className="flex shrink-0 items-center gap-1 sm:gap-2">

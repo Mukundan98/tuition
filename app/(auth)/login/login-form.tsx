@@ -25,6 +25,7 @@ import { Label } from "@/components/ui/label";
 import { ApiValidationSummary } from "@/components/ui/api-validation-summary";
 import { parseApiErrors } from "@/lib/api-errors";
 import { cn } from "@/lib/utils";
+import { TmsLogoMark } from "@/components/brand/tms-logo";
 
 export function LoginForm() {
   const router = useRouter();
@@ -67,8 +68,8 @@ export function LoginForm() {
   return (
     <Card className="border-0 bg-white/70 dark:bg-zinc-900/70 shadow-2xl shadow-indigo-500/10 backdrop-blur-xl rounded-[2rem] overflow-hidden ring-1 ring-black/5 dark:ring-white/5">
       <CardHeader className="pt-10 pb-8 px-8 text-center bg-gradient-to-b from-muted/30 to-transparent">
-        <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 ring-1 ring-indigo-500/20">
-          <LogIn className="size-6" />
+        <div className="mx-auto mb-6">
+          <TmsLogoMark size={64} className="mx-auto shadow-xl" />
         </div>
         <CardTitle className="text-3xl font-black tracking-tighter">Welcome back</CardTitle>
         <CardDescription className="text-sm font-medium text-muted-foreground/80 mt-1.5">
@@ -169,7 +170,7 @@ export function LoginForm() {
             </span>
           </div>
 
-          <p className="text-center text-xs font-medium text-muted-foreground">
+          {/* <p className="text-center text-xs font-medium text-muted-foreground">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
@@ -177,7 +178,7 @@ export function LoginForm() {
             >
               Sign up today
             </Link>
-          </p>
+          </p> */}
         </CardFooter>
       </form>
     </Card>

@@ -154,8 +154,8 @@ export function TeachersListClient() {
     if (!r.ok || !r.json?.success) {
       setDeleteErr(
         firstError(r.json?.errors as Record<string, string[]> | undefined) ??
-          r.json?.message ??
-          "Delete failed"
+        r.json?.message ??
+        "Delete failed"
       );
       return;
     }
@@ -168,7 +168,7 @@ export function TeachersListClient() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold tracking-tight">Teachers</h2>
-          <p className="text-sm text-muted-foreground">Linked logins plus assignments.</p>
+          <p className="text-sm text-muted-foreground">Manage teacher logins and class assignments.</p>
         </div>
         <Button type="button" onClick={() => setCreateOpen(true)}>
           Add teacher

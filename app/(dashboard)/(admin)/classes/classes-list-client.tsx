@@ -133,8 +133,8 @@ export function ClassesListClient() {
     if (!r.ok || !r.json?.success) {
       setDeleteErr(
         firstError(r.json?.errors as Record<string, string[]> | undefined) ??
-          r.json?.message ??
-          "Delete failed"
+        r.json?.message ??
+        "Delete failed"
       );
       return;
     }
@@ -148,7 +148,7 @@ export function ClassesListClient() {
         <div>
           <h2 className="text-xl font-semibold">Classes</h2>
           <p className="text-sm text-muted-foreground">
-            Name, capacity, and homeroom teacher (All = no assigned teacher).
+            Manage class details, capacity, and assigned teachers.
           </p>
         </div>
         <Button type="button" onClick={() => setCreateOpen(true)}>
@@ -178,6 +178,7 @@ export function ClassesListClient() {
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
+              <TableHead>Max Students</TableHead>
               <TableHead>Homeroom teacher</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -192,12 +193,13 @@ export function ClassesListClient() {
             {items.map((c) => (
               <TableRow key={c.id}>
                 <TableCell className="font-medium">{c.name}</TableCell>
+                <TableCell className="font-medium">{c.max_students}</TableCell>
                 <TableCell className="text-muted-foreground">
                   {c.homeroom_teacher
                     ? c.homeroom_teacher.name ??
-                      (c.homeroom_teacher.employee_id
-                        ? `#${c.homeroom_teacher.employee_id}`
-                        : "—")
+                    (c.homeroom_teacher.employee_id
+                      ? `#${c.homeroom_teacher.employee_id}`
+                      : "—")
                     : "All"}
                 </TableCell>
                 <TableCell className="text-right space-x-3">

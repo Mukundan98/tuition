@@ -29,7 +29,7 @@ export function AppPageLoader({
           />
           <span>Loading your workspace</span>
         </div>
-        <p className="text-xs text-muted-foreground">Tuition Management System</p>
+        <p className="text-xs text-muted-foreground">Tuvo Management System</p>
       </div>
     </div>
   );

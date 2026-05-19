@@ -72,7 +72,7 @@ export function TimetableTeacherClient() {
               <Calendar className="size-4 text-indigo-500" />
               Teacher Portal
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">Workload & Timetable</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Timetable</h1>
           </div>
         </div>
 

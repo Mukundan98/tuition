@@ -337,6 +337,7 @@ export type OnlineExamSummaryRow = {
   id: number;
   class_id: number;
   title: string;
+  type: string;
   is_published: boolean;
   questions_count: number;
   attempts_count: number;
@@ -359,6 +360,7 @@ export type OnlineExamDetail = {
   id: number;
   class_id: number;
   title: string;
+  type: string;
   description: string | null;
   is_published: boolean;
   available_from: string | null;

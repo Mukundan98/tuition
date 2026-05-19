@@ -175,8 +175,8 @@ export function SubjectsListClient({
         setDeletePending(false);
         setDeleteErr(
           firstError(r.json?.errors as Record<string, string[]> | undefined) ??
-            r.json?.message ??
-            "Delete failed"
+          r.json?.message ??
+          "Delete failed"
         );
         return;
       }
@@ -192,7 +192,7 @@ export function SubjectsListClient({
         <div>
           <h2 className="text-xl font-semibold">Subjects</h2>
           <p className="text-sm text-muted-foreground">
-            One row per subject (same code, name, teacher). Class column shows grades like 6, 7, 8; “common” is omitted.
+            Manage subjects, grades, and assigned teachers.
           </p>
         </div>
         <Button
@@ -405,13 +405,13 @@ export function SubjectsListClient({
             <AlertDialogDescription>
               {deleteTarget
                 ? (() => {
-                    const n = deleteTarget.subject_ids?.length ?? 0;
-                    const scope =
-                      n > 1
-                        ? `from ${n} classes (same subject). This cannot be undone.`
-                        : "from the class. This cannot be undone.";
-                    return `Remove “${deleteTarget.name}” (${deleteTarget.code}) ${scope}`;
-                  })()
+                  const n = deleteTarget.subject_ids?.length ?? 0;
+                  const scope =
+                    n > 1
+                      ? `from ${n} classes (same subject). This cannot be undone.`
+                      : "from the class. This cannot be undone.";
+                  return `Remove “${deleteTarget.name}” (${deleteTarget.code}) ${scope}`;
+                })()
                 : ""}
             </AlertDialogDescription>
           </AlertDialogHeader>

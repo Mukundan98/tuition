@@ -198,7 +198,7 @@ export function TeacherExamPapersClient() {
               <FileUp className="size-4 text-indigo-500" />
               Teacher Portal
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">Exam Paper Repository</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Exam Paper</h1>
           </div>
         </div>
 
