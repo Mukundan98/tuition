@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
-import { Award, Calendar, Clock, Download, GraduationCap, Layers, MonitorPlay, ScrollText } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Award, Clock, Download, GraduationCap, Layers, MonitorPlay, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 type TmsLogoMarkProps = {

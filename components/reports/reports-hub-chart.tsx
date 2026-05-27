@@ -327,7 +327,7 @@ export function ReportsHubChart({ stats, report, chartKind }: Props) {
     <ReactApexChart
       options={options}
       series={series}
-      type={apexType}
+      type={apexType as ReportChartKind}
       height={320}
       width="100%"
     />

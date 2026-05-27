@@ -4,19 +4,15 @@ import {
   GraduationCap,
   Award,
   BarChart3,
-  CheckCircle2,
   Target,
   Calendar,
-  Sparkles,
   Info,
-  ChevronRight,
   TrendingUp,
   LayoutDashboard,
   BookOpen,
 } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Card,
   CardContent,
@@ -289,8 +285,8 @@ export function StudentExamResultsClient({
                               <div className="flex items-center gap-3">
                                 <div className={cn(
                                   "flex size-9 items-center justify-center rounded-xl font-black text-sm shadow-sm ring-1 ring-inset",
-                                  line.marks_obtained >= (line.max_marks * 0.75) ? "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20" :
-                                    line.marks_obtained >= (line.max_marks * 0.45) ? "bg-amber-500/10 text-amber-600 ring-amber-500/20" :
+                                  Number(line.marks_obtained) >= (Number(line.max_marks) * 0.75) ? "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20" :
+                                    Number(line.marks_obtained) >= (Number(line.max_marks) * 0.45) ? "bg-amber-500/10 text-amber-600 ring-amber-500/20" :
                                       "bg-rose-500/10 text-rose-600 ring-rose-500/20"
                                 )}>
                                   {line.grade ?? "—"}

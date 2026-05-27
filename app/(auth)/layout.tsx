@@ -1,5 +1,3 @@
-import { TmsLogoFull } from "@/components/brand/tms-logo";
-import { Sparkles } from "lucide-react";
 
 export default function AuthLayout({
   children,

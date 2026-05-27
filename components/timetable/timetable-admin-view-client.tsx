@@ -6,7 +6,6 @@ import {
   Calendar,
   Clock,
   BookOpen,
-  Users,
   GraduationCap,
   Loader2,
   LayoutGrid,
@@ -14,9 +13,7 @@ import {
 import { apiFetch } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import {
-  timetableDayShort,
   timetableDayLong,
-  TIMETABLE_DAY_LABELS_SHORT,
 } from "@/lib/timetable-utils";
 
 /* ---------- types ---------- */

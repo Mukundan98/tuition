@@ -13,7 +13,6 @@ import {
   FileUp,
   History,
   Info,
-  LayoutDashboard,
   Sparkles,
   Trash2,
 } from "lucide-react";
@@ -39,15 +38,7 @@ import {
 import { EmptyState } from "@/components/ui/empty-state";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { TableSkeletonRows } from "@/components/ui/table-skeleton";
+
 import { Textarea } from "@/components/ui/textarea";
 import { apiDownload, apiFetch, triggerBrowserDownload } from "@/lib/api";
 import type { ExamPaperRow, ListMeta, TeachingSubjectOption } from "@/lib/types";
@@ -346,6 +337,13 @@ export function TeacherExamPapersClient() {
               Submission History
             </h2>
           </div>
+
+          {err && (
+            <div className="p-4 rounded-2xl border border-rose-500/20 bg-rose-500/5 text-rose-600 flex items-center gap-3">
+              <AlertCircle className="size-4 shrink-0" />
+              <p className="text-sm font-semibold">{err}</p>
+            </div>
+          )}
 
           {loading ? (
             <div className="grid gap-4">

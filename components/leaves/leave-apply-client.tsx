@@ -17,16 +17,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { apiFetch } from "@/lib/api";
 // import { ApiValidationSummary } from "@/components/ui/api-validation-summary";
+
+type LeaveRow = {
+  id: number;
+  leave_type: string;
+  from_date: string;
+  to_date: string;
+  reason: string;
+  status: "Approved" | "Pending" | "Rejected" | string;
+};
 
 // Mock Data for Balances (can be moved to backend later)
 const LEAVE_BALANCES = [
@@ -45,7 +47,7 @@ const LEAVE_TYPES = [
 
 export function LeaveApplyClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recentLeaves, setRecentLeaves] = useState<any[]>([]);
+  const [recentLeaves, setRecentLeaves] = useState<LeaveRow[]>([]);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [apiError, setApiError] = useState("");
 
@@ -60,7 +62,7 @@ export function LeaveApplyClient() {
   }, []);
 
   const fetchLeaves = async () => {
-    const res = await apiFetch<any[]>("leaves");
+    const res = await apiFetch<LeaveRow[]>("leaves");
     if (res.json?.success && res.json.data) {
       setRecentLeaves(res.json.data);
     }

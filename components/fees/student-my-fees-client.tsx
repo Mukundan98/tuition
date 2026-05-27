@@ -8,16 +8,12 @@ import {
   AlertCircle,
   Calendar,
   History,
-  Info,
-  LayoutDashboard,
-  Sparkles,
   ArrowRight,
   TrendingUp,
 } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { PaginationBar } from "@/components/crud/pagination-bar";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Card,
   CardContent,
@@ -34,19 +30,6 @@ type Payload = {
   items: FeeRow[];
   meta: ListMeta;
 };
-
-function badgeClass(status: string) {
-  switch (status) {
-    case "paid":
-      return "bg-emerald-100 text-emerald-900";
-    case "partial":
-      return "bg-amber-100 text-amber-950";
-    case "overdue":
-      return "bg-rose-100 text-rose-900";
-    default:
-      return "bg-slate-100 text-slate-800";
-  }
-}
 
 export function StudentMyFeesClient({
   studentId,

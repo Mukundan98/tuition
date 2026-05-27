@@ -52,7 +52,7 @@ export function SubjectForm({
   const lockedKey = [...(lockedClassIds ?? [])].sort((a, b) => a - b).join(",");
   const locked = useMemo(
     () => new Set((lockedClassIds ?? []).filter((id) => Number.isFinite(id) && id > 0)),
-    [lockedKey]
+    [lockedKey] // eslint-disable-line react-hooks/exhaustive-deps
   );
   const [classes, setClasses] = useState<SchoolClassRow[]>([]);
   const [teachers, setTeachers] = useState<TeacherRow[]>([]);

@@ -23,7 +23,6 @@ import type { TimetableTeacherRow, TimetableTeacherStats } from "@/lib/types";
 import { examClassLabel } from "@/lib/utils";
 import { timetableDayLong, timetableDayOrder } from "@/lib/timetable-utils";
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 
 export function TimetableTeacherClient() {
   const [items, setItems] = useState<TimetableTeacherRow[]>([]);

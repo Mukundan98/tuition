@@ -53,7 +53,6 @@ import { apiFetch, apiJson } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import type {
   OnlineExamAnalyticsPayload,
-  OnlineExamAttemptRow,
   OnlineExamDetail,
   OnlineExamQuestionRow,
   SchoolClassRow,
@@ -151,7 +150,6 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
   const [availableUntil, setAvailableUntil] = useState("");
   const [durationMinutes, setDurationMinutes] = useState("60");
 
-  const [attempts, setAttempts] = useState<OnlineExamAttemptRow[]>([]);
   const [analytics, setAnalytics] = useState<OnlineExamAnalyticsPayload | null>(null);
 
   const [qPrompt, setQPrompt] = useState("");
@@ -163,7 +161,6 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
   const [qPending, setQPending] = useState(false);
 
   const [uploadingQuestions, setUploadingQuestions] = useState(false);
-  const [uploadErr, setUploadErr] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Edit / Multi-Select State
@@ -199,10 +196,7 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
     setDurationMinutes(String(e.duration_minutes));
   }, [examId]);
 
-  const loadAttempts = useCallback(async () => {
-    const r = await apiFetch<{ items: OnlineExamAttemptRow[] }>(`online-exams/${examId}/attempts`);
-    if (r.json?.success && r.json.data?.items) setAttempts(r.json.data.items);
-  }, [examId]);
+
 
   const loadAnalytics = useCallback(async () => {
     const r = await apiFetch<OnlineExamAnalyticsPayload>(`online-exams/${examId}/analytics`);
@@ -222,9 +216,8 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
 
   useEffect(() => {
     if (!exam) return;
-    void loadAttempts();
     void loadAnalytics();
-  }, [exam, loadAttempts, loadAnalytics]);
+  }, [exam, loadAnalytics]);
 
   async function saveMeta() {
     setSaveErr(null);
@@ -248,7 +241,6 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
     }
     setSaveOk(true);
     void loadExam();
-    void loadAttempts();
     void loadAnalytics();
   }
 
@@ -305,7 +297,6 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
   async function uploadQuestionsFile(file: File) {
     if (!file) return;
     setUploadingQuestions(true);
-    setUploadErr(null);
     setQErr(null);
 
     const fd = new FormData();
@@ -319,16 +310,15 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
       
       if (!res.ok || !res.json?.success) {
         const errorMsg = res.json?.message ?? "Upload failed";
-        setUploadErr(errorMsg);
         setQErr(errorMsg);
       } else {
         setQErr("AI Parsed: " + (res.json?.message ?? "Questions uploaded successfully!"));
         void loadExam();
         void loadAnalytics();
       }
-    } catch (e: any) {
-      setUploadErr(e.message ?? "Upload error");
-      setQErr(e.message ?? "Upload error");
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Upload error";
+      setQErr(msg);
     } finally {
       setUploadingQuestions(false);
       if (fileInputRef.current) {

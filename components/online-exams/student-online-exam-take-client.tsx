@@ -15,7 +15,6 @@ import {
   Clock,
   HelpCircle,
   Brain,
-  Sparkles,
   AlertTriangle,
   CheckCircle,
   FileText
@@ -25,7 +24,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription
 } from "@/components/ui/card";
 
 type TakeQuestion = {
