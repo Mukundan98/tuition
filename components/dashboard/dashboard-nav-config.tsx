@@ -7,6 +7,7 @@ import {
   Bell,
   BookOpen,
   Calendar,
+  CalendarDays,
   ClipboardCheck,
   FileSpreadsheet,
   FileUp,
@@ -32,7 +33,7 @@ export type DashboardNavItem = {
   /** If the signed-in user's role is listed here, the item is hidden (evaluated after `roles`). */
   hideForRoles?: string[];
   /** Optional grouping category for structural division in the sidebar navigation. */
-  category?: "Master" | "Attendance" | "Time table" | "Exams" | "Finance";
+  category?: "Master" | "Attendance" | "Time table" | "Exams" | "Finance" | "Leaves";
 };
 
 export const dashboardNavItems: DashboardNavItem[] = [
@@ -101,6 +102,10 @@ export const dashboardNavItems: DashboardNavItem[] = [
   // Finance Category
   { title: "Fees", href: "/fees", icon: Wallet, roles: ["student"], category: "Finance" },
   { title: "Fees report", href: "/fees/report", icon: Receipt, roles: ["admin"], category: "Finance" },
+
+  // Leaves Category
+  { title: "Staff leaves", href: "/leaves/staff", icon: CalendarDays, roles: ["admin"], category: "Leaves" },
+  { title: "Apply leave", href: "/leaves/apply", icon: Calendar, roles: ["teacher"], category: "Leaves" },
 
   // Uncategorized / General Category
   { title: "Reports", href: "/reports", icon: BarChart3, roles: ["admin"] },

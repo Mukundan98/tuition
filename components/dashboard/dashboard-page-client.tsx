@@ -640,92 +640,253 @@ export function DashboardPageClient() {
 
     return (
       <DashboardCanvas>
-        <Card className="relative overflow-hidden rounded-3xl border-0 bg-gradient-to-br from-sky-700 via-indigo-800 to-violet-950 text-white shadow-xl ring-1 ring-white/10">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.12),transparent_55%)]"
-          />
-          <CardHeader className="relative">
-            <CardTitle className="text-white text-xl sm:text-2xl font-bold">
-              Hello, {studentData.student?.name}
-            </CardTitle>
-            <CardDescription className="text-sky-100/95">
-              {studentData.class
-                ? `Class ${studentData.class.name}${studentData.class.section ? ` · ${studentData.class.section}` : ""
-                }`
-                : "No class assigned"}
-              {" · "}
-              {studentData.student?.admission_number}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="relative grid gap-5 sm:grid-cols-3">
-            <div className="rounded-xl bg-white/10 p-4 ring-1 ring-white/15 backdrop-blur-sm">
-              <p className="text-xs font-medium uppercase tracking-wide text-sky-100/90">
+        <header className="flex flex-col gap-6 mb-8">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-muted-foreground text-xs font-semibold uppercase tracking-wider">
+                <GraduationCap className="size-4 text-sky-500 dark:text-sky-400" />
+                Student Portal
+              </div>
+              <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+            </div>
+            <div className="hidden sm:block text-right">
+              <p className="text-sm font-medium">{todayLabel}</p>
+              <p className="text-xs text-muted-foreground">Your academic overview</p>
+            </div>
+          </div>
+
+          <Card className="relative overflow-hidden rounded-[2rem] border-0 bg-gradient-to-br from-sky-600 via-indigo-700 to-violet-800 text-white shadow-2xl hover:shadow-3xl transition-all duration-500">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.2),transparent_60%)]" />
+            <div className="absolute -bottom-24 -left-24 size-72 rounded-full bg-white/10 blur-3xl" />
+            <div className="absolute top-0 right-0 size-56 rounded-full bg-sky-300/10 blur-3xl" />
+
+            <CardContent className="relative flex flex-col md:flex-row items-center gap-4 p-5 sm:p-6">
+              <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/20 backdrop-blur-md shadow-inner relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <GraduationCap className="size-8 text-sky-100 drop-shadow-md" />
+              </div>
+
+              <div className="text-center md:text-left space-y-2 flex-1">
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-extrabold tracking-tight text-white drop-shadow-sm">
+                    Hello, {studentData.student?.name}
+                  </h2>
+                  <p className="text-sky-100/90 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
+                    <span className="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 font-semibold ring-1 ring-white/20 backdrop-blur-sm">
+                      {studentData.class
+                        ? `Class ${studentData.class.name}${studentData.class.section ? ` · ${studentData.class.section}` : ""}`
+                        : "No class assigned"}
+                    </span>
+                    <span className="opacity-60">•</span>
+                    <span className="tracking-wide">{studentData.student?.admission_number}</span>
+                  </p>
+                </div>
+                <p className="text-sky-50/80 max-w-2xl text-xs sm:text-sm leading-relaxed mt-1">
+                  Welcome to your learning dashboard. Here you can track your attendance, upcoming exams, recent results, and fee status. Keep up the great work!
+                </p>
+              </div>
+
+              <div className="ml-auto hidden lg:block shrink-0 px-4">
+                <Sparkles className="size-12 text-sky-200/40 animate-pulse drop-shadow-lg" />
+              </div>
+            </CardContent>
+          </Card>
+        </header>
+
+        <section className="grid gap-4 sm:grid-cols-3 mb-8">
+          {/* Attendance Stat Card */}
+          <Card className="group relative overflow-hidden rounded-[1.5rem] border-border/50 bg-card/80 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-card hover:border-sky-500/30 backdrop-blur-sm">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-sky-500/50 group-hover:bg-sky-500 transition-all duration-300" />
+            <div className="absolute -right-6 -top-6 size-24 rounded-full bg-sky-500/5 blur-2xl group-hover:bg-sky-500/10 transition-colors" />
+
+            <CardHeader className="pb-2 flex flex-row items-center justify-between pl-6 relative">
+              <CardDescription className="text-xs font-bold uppercase tracking-wider text-muted-foreground group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                 Attendance (30 days)
+              </CardDescription>
+              <div className="rounded-xl bg-sky-500/10 p-2.5 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500/20 group-hover:bg-sky-500 group-hover:text-white group-hover:ring-sky-500 transition-all duration-300">
+                <Calendar className="size-4" />
+              </div>
+            </CardHeader>
+            <CardContent className="pl-6 relative">
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-black tabular-nums tracking-tighter text-foreground">
+                  {rate !== null && rate !== undefined ? `${rate}%` : "—"}
+                </span>
+              </div>
+              <p className="text-[11px] font-medium text-muted-foreground/80 mt-1">
+                {studentData.attendance_marked_30d ?? 0} days marked present
               </p>
-              <p className="mt-2 text-2xl font-semibold tabular-nums">
-                {rate !== null && rate !== undefined ? `${rate}%` : "—"}
+            </CardContent>
+          </Card>
+
+          {/* Fee Balance Stat Card */}
+          <Card className="group relative overflow-hidden rounded-[1.5rem] border-border/50 bg-card/80 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-card hover:border-indigo-500/30 backdrop-blur-sm">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500/50 group-hover:bg-indigo-500 transition-all duration-300" />
+            <div className="absolute -right-6 -top-6 size-24 rounded-full bg-indigo-500/5 blur-2xl group-hover:bg-indigo-500/10 transition-colors" />
+
+            <CardHeader className="pb-2 flex flex-row items-center justify-between pl-6 relative">
+              <CardDescription className="text-xs font-bold uppercase tracking-wider text-muted-foreground group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                Fee Balance
+              </CardDescription>
+              <div className="rounded-xl bg-indigo-500/10 p-2.5 text-indigo-600 dark:text-indigo-400 ring-1 ring-indigo-500/20 group-hover:bg-indigo-500 group-hover:text-white group-hover:ring-indigo-500 transition-all duration-300">
+                <WalletCards className="size-4" />
+              </div>
+            </CardHeader>
+            <CardContent className="pl-6 relative">
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-black tabular-nums tracking-tighter text-foreground">
+                  {studentData.fee_balance ?? 0}
+                </span>
+              </div>
+              <p className="text-[11px] font-medium text-muted-foreground/80 mt-1">
+                Current outstanding amount
               </p>
-              <p className="text-[11px] text-sky-200">{studentData.attendance_marked_30d ?? 0} days marked</p>
-            </div>
-            <div className="rounded-xl bg-white/10 p-4 ring-1 ring-white/15 backdrop-blur-sm">
-              <p className="text-xs font-medium uppercase tracking-wide text-sky-100/90">Fee balance</p>
-              <p className="mt-2 text-2xl font-semibold tabular-nums">{studentData.fee_balance ?? 0}</p>
-            </div>
-            <div className="rounded-xl bg-white/10 p-4 ring-1 ring-white/15 backdrop-blur-sm">
-              <p className="text-xs font-medium uppercase tracking-wide text-sky-100/90">Alerts</p>
-              <p className="mt-2 text-2xl font-semibold tabular-nums">{studentData.unread_notifications ?? 0}</p>
+            </CardContent>
+          </Card>
+
+          {/* Alerts Stat Card */}
+          <Card className="group relative overflow-hidden rounded-[1.5rem] border-border/50 bg-card/80 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-card hover:border-rose-500/30 backdrop-blur-sm">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-rose-500/50 group-hover:bg-rose-500 transition-all duration-300" />
+            <div className="absolute -right-6 -top-6 size-24 rounded-full bg-rose-500/5 blur-2xl group-hover:bg-rose-500/10 transition-colors" />
+
+            <CardHeader className="pb-2 flex flex-row items-center justify-between pl-6 relative">
+              <CardDescription className="text-xs font-bold uppercase tracking-wider text-muted-foreground group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                Unread Alerts
+              </CardDescription>
+              <div className="rounded-xl bg-rose-500/10 p-2.5 text-rose-600 dark:text-rose-400 ring-1 ring-rose-500/20 group-hover:bg-rose-500 group-hover:text-white group-hover:ring-rose-500 transition-all duration-300">
+                <Bell className="size-4" />
+              </div>
+            </CardHeader>
+            <CardContent className="pl-6 relative">
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-black tabular-nums tracking-tighter text-foreground">
+                  {studentData.unread_notifications ?? 0}
+                </span>
+              </div>
               <Link
                 href="/notifications"
-                className="mt-1 inline-block text-[11px] text-white/90 underline-offset-2 hover:underline"
+                className="mt-1 inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 hover:underline transition-colors"
               >
-                View inbox
+                View inbox →
               </Link>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </section>
 
-        <div className="grid gap-4 lg:grid-cols-2">
-          <Card className="rounded-2xl border-border/60 bg-card/85 shadow-md backdrop-blur-sm">
-            <CardHeader className="border-b border-border/50 pb-3">
-              <CardTitle className="text-lg font-semibold">Upcoming exams</CardTitle>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Upcoming Exams Card */}
+          <Card className="group relative overflow-hidden rounded-[2rem] border-border/60 bg-card/75 shadow-md hover:shadow-xl transition-all duration-300 backdrop-blur-md">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-violet-500/50 group-hover:bg-violet-500 transition-all duration-300" />
+            <div className="absolute -right-20 -top-20 size-64 rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
+
+            <CardHeader className="border-b border-border/50 pb-4 pl-6 pr-6 flex flex-row justify-between items-center bg-muted/20">
+              <div className="space-y-1">
+                <CardTitle className="flex items-center gap-2 text-xl font-bold tracking-tight">
+                  <Calendar className="size-5 text-violet-500" />
+                  Upcoming Exams
+                </CardTitle>
+                <CardDescription className="text-sm">Your scheduled assessments</CardDescription>
+              </div>
+              {(studentData.upcoming_exams?.length ?? 0) > 0 && (
+                <div className="rounded-full bg-violet-500/10 px-3 py-1 text-xs font-bold text-violet-600 dark:text-violet-400 ring-1 ring-violet-500/20 shadow-sm">
+                  {studentData.upcoming_exams?.length} Exam{(studentData.upcoming_exams?.length ?? 0) !== 1 ? "s" : ""}
+                </div>
+              )}
             </CardHeader>
-            <CardContent className="pt-4">
+
+            <CardContent className="p-0">
               {(studentData.upcoming_exams?.length ?? 0) === 0 ? (
-                <p className="text-sm text-muted-foreground">None scheduled.</p>
+                <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground gap-3">
+                  <Calendar className="size-16 opacity-10" />
+                  <div>
+                    <p className="text-base font-semibold">No exams scheduled</p>
+                    <p className="text-sm text-muted-foreground/70 mt-1">You have no upcoming assessments</p>
+                  </div>
+                </div>
               ) : (
-                <ul className="space-y-2 text-sm">
+                <ul className="divide-y divide-border/50">
                   {studentData.upcoming_exams?.map((ex) => (
-                    <li key={ex.id} className="flex justify-between gap-2">
-                      <span>{ex.title}</span>
-                      <span className="text-muted-foreground">{ex.exam_date}</span>
+                    <li key={ex.id} className="flex items-center justify-between p-4 sm:px-6 hover:bg-muted/30 transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className="shrink-0 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-100 dark:border-violet-800/30 px-3 py-2 text-center shadow-sm min-w-[60px]">
+                          <span className="block text-[10px] uppercase font-bold text-violet-600 dark:text-violet-400 leading-none mb-1">
+                            {ex.exam_date ? new Date(ex.exam_date).toLocaleString("default", { month: "short" }) : "---"}
+                          </span>
+                          <span className="block text-xl font-black leading-none tracking-tighter text-foreground">
+                            {ex.exam_date ? new Date(ex.exam_date).getDate() : "--"}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="font-bold text-base text-foreground">{ex.title}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5 font-medium flex items-center gap-1.5">
+                            <Calendar className="size-3" />
+                            {ex.exam_date}
+                          </p>
+                        </div>
+                      </div>
                     </li>
                   ))}
                 </ul>
               )}
             </CardContent>
           </Card>
-          <Card className="rounded-2xl border-border/60 bg-card/85 shadow-md backdrop-blur-sm">
-            <CardHeader className="border-b border-border/50 pb-3">
-              <CardTitle className="text-lg font-semibold">Recent results</CardTitle>
+
+          {/* Recent Results Card */}
+          <Card className="group relative overflow-hidden rounded-[2rem] border-border/60 bg-card/75 shadow-md hover:shadow-xl transition-all duration-300 backdrop-blur-md">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500/50 group-hover:bg-emerald-500 transition-all duration-300" />
+            <div className="absolute -right-20 -top-20 size-64 rounded-full bg-emerald-500/5 blur-3xl pointer-events-none" />
+
+            <CardHeader className="border-b border-border/50 pb-4 pl-6 pr-6 flex flex-row justify-between items-center bg-muted/20">
+              <div className="space-y-1">
+                <CardTitle className="flex items-center gap-2 text-xl font-bold tracking-tight">
+                  <BookOpen className="size-5 text-emerald-500" />
+                  Recent Results
+                </CardTitle>
+                <CardDescription className="text-sm">Your latest academic performance</CardDescription>
+              </div>
+              {(studentData.recent_results?.length ?? 0) > 0 && (
+                <div className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/20 shadow-sm">
+                  {studentData.recent_results?.length} Result{(studentData.recent_results?.length ?? 0) !== 1 ? "s" : ""}
+                </div>
+              )}
             </CardHeader>
-            <CardContent className="pt-4">
+
+            <CardContent className="p-0">
               {(studentData.recent_results?.length ?? 0) === 0 ? (
-                <p className="text-sm text-muted-foreground">No marks yet.</p>
+                <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground gap-3">
+                  <BookOpen className="size-16 opacity-10" />
+                  <div>
+                    <p className="text-base font-semibold">No results yet</p>
+                    <p className="text-sm text-muted-foreground/70 mt-1">Your exam marks will appear here</p>
+                  </div>
+                </div>
               ) : (
-                <ul className="space-y-2 text-sm">
+                <ul className="divide-y divide-border/50">
                   {studentData.recent_results?.map((row, i) => (
                     <li
                       key={`${row.exam_title}-${row.subject}-${i}`}
-                      className="flex justify-between gap-2 border-b border-border/50 pb-2 last:border-0"
+                      className="flex items-center justify-between p-4 sm:px-6 hover:bg-muted/30 transition-colors group/item"
                     >
-                      <span>
-                        {row.exam_title}
-                        {row.subject ? ` · ${row.subject}` : ""}
-                      </span>
-                      <span className="shrink-0 tabular-nums text-muted-foreground">
-                        {row.marks} ({row.grade ?? "—"})
-                      </span>
+                      <div className="min-w-0 pr-4">
+                        <p className="font-bold text-base text-foreground truncate">{row.exam_title}</p>
+                        {row.subject && (
+                          <p className="text-xs text-muted-foreground mt-0.5 font-medium flex items-center gap-1.5">
+                            <Layers className="size-3" />
+                            {row.subject}
+                          </p>
+                        )}
+                      </div>
+                      <div className="shrink-0 flex items-center gap-3">
+                        <div className="text-right">
+                          <p className="text-lg font-black tabular-nums tracking-tight">{row.marks}</p>
+                          <p className="text-[10px] uppercase font-bold text-muted-foreground">Marks</p>
+                        </div>
+                        {row.grade && (
+                          <div className="flex size-10 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/20 font-black text-sm shadow-sm group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors">
+                            {row.grade}
+                          </div>
+                        )}
+                      </div>
                     </li>
                   ))}
                 </ul>

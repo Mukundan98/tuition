@@ -69,6 +69,7 @@ export function DashboardNavLinks({
       "Time table": [],
       "Exams": [],
       "Finance": [],
+      "Leaves": [],
     };
 
     visible.forEach((item) => {
@@ -86,7 +87,7 @@ export function DashboardNavLinks({
     [visible]
   );
 
-  const orderedCategories = ["Master", "Attendance", "Time table", "Exams", "Finance"] as const;
+  const orderedCategories = ["Master", "Attendance", "Time table", "Exams", "Finance", "Leaves"] as const;
 
   const renderItem = (item: typeof visible[number]) => {
     const active = activeHrefSet.has(item.href);

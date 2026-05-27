@@ -7,6 +7,8 @@ import {
   ArrowRight,
   Loader2,
   ShieldCheck,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -34,6 +36,7 @@ export function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [pending, setPending] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]> | null>(null);
@@ -130,14 +133,21 @@ export function LoginForm() {
               </div>
               <Input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 required
                 placeholder="••••••••"
-                className="pl-11 h-12 bg-muted/40 border-0 ring-1 ring-transparent focus-visible:ring-indigo-500/50 focus-visible:bg-white dark:focus-visible:bg-zinc-950 transition-all rounded-xl"
+                className="pl-11 pr-11 h-12 bg-muted/40 border-0 ring-1 ring-transparent focus-visible:ring-indigo-500/50 focus-visible:bg-white dark:focus-visible:bg-zinc-950 transition-all rounded-xl"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-indigo-500 transition-colors"
+              >
+                {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              </button>
             </div>
           </div>
         </CardContent>

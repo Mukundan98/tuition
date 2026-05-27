@@ -21,6 +21,7 @@ const ALLOWED_ROOTS = new Set([
   "in-app-notifications",
   "dashboard",
   "search",
+  "leaves",
 ]);
 
 function allowPath(segments: string[]): boolean {

@@ -661,7 +661,18 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
         description={exam.type === "mcq" ? "Add multiple-choice items for this exam." : exam.type === "single_word" ? "Add single-word answer items for this exam." : "Add open-ended essay questions for this exam."}
         accent="violet"
       >
-        {qErr && <p className="mb-3 text-sm text-destructive">{qErr}</p>}
+        {qErr && (
+          <p
+            className={cn(
+              "mb-3 text-sm font-medium rounded-lg border px-3 py-2",
+              qErr.startsWith("AI Parsed:")
+                ? "border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300"
+                : "border-destructive/30 bg-destructive/5 text-destructive"
+            )}
+          >
+            {qErr}
+          </p>
+        )}
         <div className="space-y-4 rounded-xl border border-dashed border-border/80 bg-muted/20 p-4">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">New question</p>
           <div className="space-y-2">
@@ -902,6 +913,11 @@ export function OnlineExamManageClient({ examId }: { examId: string }) {
                                 )}
                               >
                                 <span className="font-bold">{OPTION_LETTERS[optIdx]}:</span> {opt}
+                              {optIdx === q.correct_index && (
+                                <span className="ml-auto inline-flex items-center gap-0.5 rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                                  <CheckCircle2 className="size-3" aria-hidden /> Correct
+                                </span>
+                              )}
                               </div>
                             ))}
                           </div>
