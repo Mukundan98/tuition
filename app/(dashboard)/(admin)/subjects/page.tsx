@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { Suspense } from "react";
 import { ListPageTableSkeleton } from "@/components/ui/table-skeleton";
 import { SubjectsListClient } from "./subjects-list-client";

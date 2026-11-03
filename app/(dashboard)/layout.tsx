@@ -1,5 +1,7 @@
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 
+export const runtime = "edge";
+
 export default function DashboardLayout({
   children,
 }: {

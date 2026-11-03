@@ -1,5 +1,7 @@
 import { AdminGate } from "@/components/admin/admin-gate";
 
+export const runtime = "edge";
+
 export default function AdminSectionLayout({
   children,
 }: {
