@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { laravelApiUrl } from "@/lib/laravel";
 import { NextResponse } from "next/server";
 

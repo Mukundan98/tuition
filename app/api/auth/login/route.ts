@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { AUTH_COOKIE_NAME } from "@/lib/constants";
 import { laravelApiUrl } from "@/lib/laravel";
 import { NextResponse } from "next/server";
